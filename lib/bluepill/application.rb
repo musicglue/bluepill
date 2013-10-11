@@ -25,7 +25,7 @@ module Bluepill
 
       self.groups = {}
 
-      self.logger = ProcessJournal.logger = Bluepill::Logger.new(:log_file => self.log_file, :stdout => foreground?).prefix_with(self.name)
+      self.logger = ProcessJournal.logger = Bluepill::Logger.new(:log_file => self.log_file, :stdout => false).prefix_with(self.name)
 
       self.setup_signal_traps
       self.setup_pids_dir

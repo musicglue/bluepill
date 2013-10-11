@@ -43,7 +43,9 @@ module Bluepill
     protected
     def create_logger
       if @options[:log_file]
-        LoggerAdapter.new(@options[:log_file])
+        LoggerAdapter.new(@options[:log_file]).tap do |log|
+          log.level = ::Logger::WARN unless ENV['BLUEPILL_VERBOSE']
+        end
       else
         Syslog.close if Syslog.opened? # need to explictly close it before reopening it
         Syslog.open(@options[:identity] || 'bluepilld', Syslog::LOG_PID, Syslog::LOG_LOCAL6)
